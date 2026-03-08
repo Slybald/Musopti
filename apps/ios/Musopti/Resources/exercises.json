@@ -1,0 +1,1307 @@
+[
+  {
+    "id": "c27d0cd1-d4d2-4bb0-b5ad-8bdb31f3775f",
+    "name": "Bench Press (Barbell)",
+    "category": "chest",
+    "muscleGroup": "pectorals",
+    "equipmentType": "barbell",
+    "iconName": "figure.strengthtraining.traditional",
+    "detectionProfile": {
+      "firmwareExerciseType": 1,
+      "requireHold": true,
+      "holdTargetMs": 3000,
+      "holdToleranceMs": 200,
+      "minRepDurationMs": 1000
+    }
+  },
+  {
+    "id": "e3d98ef0-ae2e-4b1e-b2bb-e00f39d43e6d",
+    "name": "Incline Bench Press (Barbell)",
+    "category": "chest",
+    "muscleGroup": "pectorals",
+    "equipmentType": "barbell",
+    "iconName": "figure.strengthtraining.traditional",
+    "detectionProfile": {
+      "firmwareExerciseType": 1,
+      "requireHold": true,
+      "holdTargetMs": 3000,
+      "holdToleranceMs": 200,
+      "minRepDurationMs": 1000
+    }
+  },
+  {
+    "id": "0ebb73ad-20bc-44d7-a100-508f11ab1687",
+    "name": "Decline Bench Press (Barbell)",
+    "category": "chest",
+    "muscleGroup": "pectorals",
+    "equipmentType": "barbell",
+    "iconName": "figure.strengthtraining.traditional",
+    "detectionProfile": {
+      "firmwareExerciseType": 1,
+      "requireHold": true,
+      "holdTargetMs": 3000,
+      "holdToleranceMs": 200,
+      "minRepDurationMs": 1000
+    }
+  },
+  {
+    "id": "ee2f7eb8-772b-4b0e-9d1e-37723b673d47",
+    "name": "Dumbbell Press (Flat)",
+    "category": "chest",
+    "muscleGroup": "pectorals",
+    "equipmentType": "dumbbell",
+    "iconName": "figure.strengthtraining.traditional",
+    "detectionProfile": {
+      "firmwareExerciseType": 1,
+      "requireHold": true,
+      "holdTargetMs": 3000,
+      "holdToleranceMs": 200,
+      "minRepDurationMs": 1000
+    }
+  },
+  {
+    "id": "5618cda3-5545-4e87-88f3-127fd2c3b2db",
+    "name": "Incline Dumbbell Press",
+    "category": "chest",
+    "muscleGroup": "pectorals",
+    "equipmentType": "dumbbell",
+    "iconName": "figure.strengthtraining.traditional",
+    "detectionProfile": {
+      "firmwareExerciseType": 1,
+      "requireHold": true,
+      "holdTargetMs": 3000,
+      "holdToleranceMs": 200,
+      "minRepDurationMs": 1000
+    }
+  },
+  {
+    "id": "2ac6facf-b5fb-47cc-a6ab-a56f7821a1db",
+    "name": "Cable Fly",
+    "category": "chest",
+    "muscleGroup": "pectorals",
+    "equipmentType": "cable",
+    "iconName": "figure.strengthtraining.traditional",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "b122b030-4282-425f-8c61-773a4ffad45b",
+    "name": "Pec Deck Machine",
+    "category": "chest",
+    "muscleGroup": "pectorals",
+    "equipmentType": "machine",
+    "iconName": "figure.strengthtraining.traditional",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "5518e684-8da4-49ca-9287-6ea48fd19346",
+    "name": "Push-Up",
+    "category": "chest",
+    "muscleGroup": "pectorals",
+    "equipmentType": "bodyweight",
+    "iconName": "figure.strengthtraining.traditional",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "f17e5752-534d-45b9-b178-9604de42c53b",
+    "name": "Dips (Chest)",
+    "category": "chest",
+    "muscleGroup": "pectorals",
+    "equipmentType": "bodyweight",
+    "iconName": "figure.strengthtraining.traditional",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "e84c5885-2b86-412e-bde0-125c0de9fd13",
+    "name": "Barbell Row",
+    "category": "back",
+    "muscleGroup": "lats",
+    "equipmentType": "barbell",
+    "iconName": "figure.rower",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "8f9f69c7-6a84-4469-9192-c7fedd7d50d8",
+    "name": "Pendlay Row",
+    "category": "back",
+    "muscleGroup": "lats",
+    "equipmentType": "barbell",
+    "iconName": "figure.rower",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "7351c592-c328-4dca-9526-d9abdce59df7",
+    "name": "Dumbbell Row",
+    "category": "back",
+    "muscleGroup": "lats",
+    "equipmentType": "dumbbell",
+    "iconName": "figure.rower",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "cfad5cc5-a77f-491b-8b57-2ef266cd8bf4",
+    "name": "Cable Row (Seated)",
+    "category": "back",
+    "muscleGroup": "lats",
+    "equipmentType": "cable",
+    "iconName": "figure.rower",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "66819b08-5a70-48e5-8e6e-2acc911b54b3",
+    "name": "Lat Pulldown (Wide)",
+    "category": "back",
+    "muscleGroup": "lats",
+    "equipmentType": "cable",
+    "iconName": "figure.rower",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "db011168-16fb-4075-a891-59d1dfcc11f7",
+    "name": "Lat Pulldown (Close Grip)",
+    "category": "back",
+    "muscleGroup": "lats",
+    "equipmentType": "cable",
+    "iconName": "figure.rower",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "ed121088-d25a-4196-b882-7d180694fadb",
+    "name": "Lat Pulldown (Neutral)",
+    "category": "back",
+    "muscleGroup": "lats",
+    "equipmentType": "cable",
+    "iconName": "figure.rower",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "6d579257-2e92-465d-ab03-d07b94370454",
+    "name": "Pull-Up",
+    "category": "back",
+    "muscleGroup": "lats",
+    "equipmentType": "bodyweight",
+    "iconName": "figure.rower",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "ffc59700-0fe4-4bb6-8440-1f726f0a5142",
+    "name": "Chin-Up",
+    "category": "back",
+    "muscleGroup": "lats",
+    "equipmentType": "bodyweight",
+    "iconName": "figure.rower",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "c4d2dd89-e276-4cfd-a90f-f4c51746f9b5",
+    "name": "T-Bar Row",
+    "category": "back",
+    "muscleGroup": "upper back",
+    "equipmentType": "barbell",
+    "iconName": "figure.rower",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "17ae9b35-d146-4b95-af1c-4390343a3af8",
+    "name": "Machine Row",
+    "category": "back",
+    "muscleGroup": "upper back",
+    "equipmentType": "machine",
+    "iconName": "figure.rower",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "7967120d-6b3f-4ee2-95c4-877ef4ca9eb4",
+    "name": "Squat (Barbell)",
+    "category": "legs",
+    "muscleGroup": "quadriceps",
+    "equipmentType": "barbell",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 2,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 800
+    }
+  },
+  {
+    "id": "1e9f0135-f83e-462a-86ee-c6d0f3f9359a",
+    "name": "Front Squat",
+    "category": "legs",
+    "muscleGroup": "quadriceps",
+    "equipmentType": "barbell",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 2,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 800
+    }
+  },
+  {
+    "id": "8d7df5a9-3100-4857-b456-87d7ccb7d50a",
+    "name": "Goblet Squat",
+    "category": "legs",
+    "muscleGroup": "quadriceps",
+    "equipmentType": "dumbbell",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 2,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 800
+    }
+  },
+  {
+    "id": "5810b1d6-3005-42ae-9e5a-d07788088074",
+    "name": "Leg Press",
+    "category": "legs",
+    "muscleGroup": "quadriceps",
+    "equipmentType": "machine",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 2,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 800
+    }
+  },
+  {
+    "id": "bbcbfe17-5f25-4648-b65a-4ea208b6430b",
+    "name": "Hack Squat",
+    "category": "legs",
+    "muscleGroup": "quadriceps",
+    "equipmentType": "machine",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 2,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 800
+    }
+  },
+  {
+    "id": "46802772-3bf3-4418-84aa-fa19a9020477",
+    "name": "Romanian Deadlift",
+    "category": "legs",
+    "muscleGroup": "hamstrings",
+    "equipmentType": "barbell",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 3,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 1200
+    }
+  },
+  {
+    "id": "c46f5824-f632-4e19-9b0e-746620d9118d",
+    "name": "Leg Curl (Lying)",
+    "category": "legs",
+    "muscleGroup": "hamstrings",
+    "equipmentType": "machine",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "868d94d1-6a14-464d-b80f-bdf7254a301c",
+    "name": "Leg Curl (Seated)",
+    "category": "legs",
+    "muscleGroup": "hamstrings",
+    "equipmentType": "machine",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "96d3d651-ce77-4a7e-9d77-3c19fb507dd4",
+    "name": "Leg Extension",
+    "category": "legs",
+    "muscleGroup": "quadriceps",
+    "equipmentType": "machine",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "a15549bf-b428-4994-8b30-d662b1c5f224",
+    "name": "Calf Raise (Standing)",
+    "category": "legs",
+    "muscleGroup": "calves",
+    "equipmentType": "machine",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "8a49fb27-30e2-40ec-9878-74a1113ce516",
+    "name": "Calf Raise (Seated)",
+    "category": "legs",
+    "muscleGroup": "calves",
+    "equipmentType": "machine",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "1ceceeeb-e80f-473a-92d4-0b1ab51b86ca",
+    "name": "Bulgarian Split Squat",
+    "category": "legs",
+    "muscleGroup": "glutes",
+    "equipmentType": "dumbbell",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "53f41ce9-90b8-47ea-ad5a-74c13b0345ec",
+    "name": "Lunges",
+    "category": "legs",
+    "muscleGroup": "glutes",
+    "equipmentType": "dumbbell",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "cd36da08-b9f0-45eb-99e4-fe29a97525b6",
+    "name": "Overhead Press (Barbell)",
+    "category": "shoulders",
+    "muscleGroup": "deltoids",
+    "equipmentType": "barbell",
+    "iconName": "figure.arms.open",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "e3412347-993f-4cdd-b0ad-4b76e5f644cc",
+    "name": "Dumbbell Shoulder Press",
+    "category": "shoulders",
+    "muscleGroup": "deltoids",
+    "equipmentType": "dumbbell",
+    "iconName": "figure.arms.open",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "e987402c-b459-4f03-a01b-59b868e72e16",
+    "name": "Lateral Raise",
+    "category": "shoulders",
+    "muscleGroup": "deltoids",
+    "equipmentType": "dumbbell",
+    "iconName": "figure.arms.open",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "9b7b8201-4c6d-4470-939a-160f7ecfb787",
+    "name": "Front Raise",
+    "category": "shoulders",
+    "muscleGroup": "deltoids",
+    "equipmentType": "dumbbell",
+    "iconName": "figure.arms.open",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "5f8dc2ac-2582-4482-8e9a-a79021817a0d",
+    "name": "Face Pull",
+    "category": "shoulders",
+    "muscleGroup": "deltoids",
+    "equipmentType": "cable",
+    "iconName": "figure.arms.open",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "c0480c44-5c8b-4b6a-a6d8-86f07176c834",
+    "name": "Reverse Fly",
+    "category": "shoulders",
+    "muscleGroup": "deltoids",
+    "equipmentType": "dumbbell",
+    "iconName": "figure.arms.open",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "9f162864-c306-4370-93f8-6ea2eb28a889",
+    "name": "Arnold Press",
+    "category": "shoulders",
+    "muscleGroup": "deltoids",
+    "equipmentType": "dumbbell",
+    "iconName": "figure.arms.open",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "23bf95b6-ce53-4dd5-ac88-0f7ca6c97ea3",
+    "name": "Upright Row",
+    "category": "shoulders",
+    "muscleGroup": "deltoids",
+    "equipmentType": "barbell",
+    "iconName": "figure.arms.open",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "d88fd144-adc3-4eb2-9419-56f02c82f70c",
+    "name": "Cable Lateral Raise",
+    "category": "shoulders",
+    "muscleGroup": "deltoids",
+    "equipmentType": "cable",
+    "iconName": "figure.arms.open",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "091dc39f-5315-4500-8374-373be8e23682",
+    "name": "Barbell Curl",
+    "category": "arms",
+    "muscleGroup": "biceps",
+    "equipmentType": "barbell",
+    "iconName": "figure.boxing",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "7a34444a-88c2-40ec-ac7a-bbd439bb2acd",
+    "name": "Dumbbell Curl",
+    "category": "arms",
+    "muscleGroup": "biceps",
+    "equipmentType": "dumbbell",
+    "iconName": "figure.boxing",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "6b164cb2-1a44-46f9-809e-7920b1607b23",
+    "name": "Hammer Curl",
+    "category": "arms",
+    "muscleGroup": "biceps",
+    "equipmentType": "dumbbell",
+    "iconName": "figure.boxing",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "3b3d4f2a-0e70-4801-b33b-e3fd671404a8",
+    "name": "Preacher Curl",
+    "category": "arms",
+    "muscleGroup": "biceps",
+    "equipmentType": "barbell",
+    "iconName": "figure.boxing",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "c70b5466-5c2e-401a-bfdc-1ff21253209c",
+    "name": "Cable Curl",
+    "category": "arms",
+    "muscleGroup": "biceps",
+    "equipmentType": "cable",
+    "iconName": "figure.boxing",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "3f373268-7b23-4c1d-ab68-08bbd57ad4a6",
+    "name": "Concentration Curl",
+    "category": "arms",
+    "muscleGroup": "biceps",
+    "equipmentType": "dumbbell",
+    "iconName": "figure.boxing",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "f6a2199c-3db2-4a70-bce4-087409b705f2",
+    "name": "Tricep Pushdown (Rope)",
+    "category": "arms",
+    "muscleGroup": "triceps",
+    "equipmentType": "cable",
+    "iconName": "figure.boxing",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "a496d058-1528-44f7-9d9b-5848bf2dbe21",
+    "name": "Tricep Pushdown (Bar)",
+    "category": "arms",
+    "muscleGroup": "triceps",
+    "equipmentType": "cable",
+    "iconName": "figure.boxing",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "a593a1a0-1892-47a4-94dc-ff24484e32bb",
+    "name": "Overhead Tricep Extension",
+    "category": "arms",
+    "muscleGroup": "triceps",
+    "equipmentType": "dumbbell",
+    "iconName": "figure.boxing",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "f2e18b95-53b9-4968-a8e6-82e4bd81071a",
+    "name": "Skull Crusher",
+    "category": "arms",
+    "muscleGroup": "triceps",
+    "equipmentType": "barbell",
+    "iconName": "figure.boxing",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "959be4f7-8feb-4b52-9ba8-c0d49767b26f",
+    "name": "Close Grip Bench Press",
+    "category": "arms",
+    "muscleGroup": "triceps",
+    "equipmentType": "barbell",
+    "iconName": "figure.boxing",
+    "detectionProfile": {
+      "firmwareExerciseType": 1,
+      "requireHold": true,
+      "holdTargetMs": 3000,
+      "holdToleranceMs": 200,
+      "minRepDurationMs": 1000
+    }
+  },
+  {
+    "id": "f86b717a-7c01-49a6-af13-52cd107f555b",
+    "name": "Dips (Tricep)",
+    "category": "arms",
+    "muscleGroup": "triceps",
+    "equipmentType": "bodyweight",
+    "iconName": "figure.boxing",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "4348d72f-9207-45f4-902c-4978cfcaceaa",
+    "name": "Cable Crunch",
+    "category": "core",
+    "muscleGroup": "abdominals",
+    "equipmentType": "cable",
+    "iconName": "figure.core.training",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "bf5f15fc-e5f3-451c-8884-5c5ee9885317",
+    "name": "Ab Wheel Rollout",
+    "category": "core",
+    "muscleGroup": "abdominals",
+    "equipmentType": "bodyweight",
+    "iconName": "figure.core.training",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "6f726fff-c302-4d60-a385-e4dc31df15f0",
+    "name": "Hanging Leg Raise",
+    "category": "core",
+    "muscleGroup": "abdominals",
+    "equipmentType": "bodyweight",
+    "iconName": "figure.core.training",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "66ec41e9-6457-47f0-a4dc-08bb34c4c126",
+    "name": "Russian Twist",
+    "category": "core",
+    "muscleGroup": "obliques",
+    "equipmentType": "bodyweight",
+    "iconName": "figure.core.training",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "3ab3d051-6946-41b8-9f84-cd0ab4e3bd86",
+    "name": "Woodchop",
+    "category": "core",
+    "muscleGroup": "obliques",
+    "equipmentType": "cable",
+    "iconName": "figure.core.training",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "043f62b0-e941-43a0-83cf-d621a3d1dbdd",
+    "name": "Rowing Machine",
+    "category": "cardio",
+    "muscleGroup": "full body",
+    "equipmentType": "machine",
+    "iconName": "figure.run",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "bd514d51-431e-456d-ba52-2327ba053fb2",
+    "name": "Kettlebell Swing",
+    "category": "cardio",
+    "muscleGroup": "full body",
+    "equipmentType": "kettlebell",
+    "iconName": "figure.run",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "82c6d0cd-1926-4d7d-94f9-a435d1c96dc5",
+    "name": "Chest Press Machine",
+    "category": "chest",
+    "muscleGroup": "pectorals",
+    "equipmentType": "machine",
+    "iconName": "figure.strengthtraining.traditional",
+    "detectionProfile": {
+      "firmwareExerciseType": 1,
+      "requireHold": true,
+      "holdTargetMs": 3000,
+      "holdToleranceMs": 200,
+      "minRepDurationMs": 1000
+    }
+  },
+  {
+    "id": "a815f77f-04c2-4cd0-9f1f-fd786ac684d9",
+    "name": "Incline Chest Press Machine",
+    "category": "chest",
+    "muscleGroup": "upper pectorals",
+    "equipmentType": "machine",
+    "iconName": "figure.strengthtraining.traditional",
+    "detectionProfile": {
+      "firmwareExerciseType": 1,
+      "requireHold": true,
+      "holdTargetMs": 3000,
+      "holdToleranceMs": 200,
+      "minRepDurationMs": 1000
+    }
+  },
+  {
+    "id": "b521f9d7-264b-417f-9430-a8e74fa0e7bc",
+    "name": "Smith Machine Bench Press",
+    "category": "chest",
+    "muscleGroup": "pectorals",
+    "equipmentType": "smith machine",
+    "iconName": "figure.strengthtraining.traditional",
+    "detectionProfile": {
+      "firmwareExerciseType": 1,
+      "requireHold": true,
+      "holdTargetMs": 3000,
+      "holdToleranceMs": 200,
+      "minRepDurationMs": 1000
+    }
+  },
+  {
+    "id": "ab6d8104-9d67-47e2-aed8-18ef1f314655",
+    "name": "Assisted Dip Machine",
+    "category": "chest",
+    "muscleGroup": "pectorals",
+    "equipmentType": "machine",
+    "iconName": "figure.strengthtraining.traditional",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 700
+    }
+  },
+  {
+    "id": "cefc7bb1-544e-4871-a449-5dd44a71be84",
+    "name": "Cable Crossover",
+    "category": "chest",
+    "muscleGroup": "pectorals",
+    "equipmentType": "cable",
+    "iconName": "figure.strengthtraining.traditional",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "48e294c6-edf6-4bc0-b610-4f050fccd7dd",
+    "name": "High Row Machine",
+    "category": "back",
+    "muscleGroup": "upper back",
+    "equipmentType": "machine",
+    "iconName": "figure.rower",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 700
+    }
+  },
+  {
+    "id": "6774df67-17d0-4e84-8db1-50345a97a1e6",
+    "name": "Chest-Supported Row Machine",
+    "category": "back",
+    "muscleGroup": "lats",
+    "equipmentType": "machine",
+    "iconName": "figure.rower",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 700
+    }
+  },
+  {
+    "id": "64de55d9-12e0-4939-ace9-3376c458ff2a",
+    "name": "Assisted Pull-Up Machine",
+    "category": "back",
+    "muscleGroup": "lats",
+    "equipmentType": "machine",
+    "iconName": "figure.rower",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 700
+    }
+  },
+  {
+    "id": "01ecf166-ab3e-4ac6-8ae6-b8ffc5eca6c5",
+    "name": "Pullover Machine",
+    "category": "back",
+    "muscleGroup": "lats",
+    "equipmentType": "machine",
+    "iconName": "figure.rower",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 650
+    }
+  },
+  {
+    "id": "d51928fa-d7b0-4ac4-8e78-945132de93a7",
+    "name": "Smith Machine Squat",
+    "category": "legs",
+    "muscleGroup": "quadriceps",
+    "equipmentType": "smith machine",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 2,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 800
+    }
+  },
+  {
+    "id": "729d1276-9b32-432a-9512-c48f22f8356d",
+    "name": "Pendulum Squat",
+    "category": "legs",
+    "muscleGroup": "quadriceps",
+    "equipmentType": "machine",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 800
+    }
+  },
+  {
+    "id": "76627a95-9848-4980-a1af-a4a6bb191067",
+    "name": "Belt Squat",
+    "category": "legs",
+    "muscleGroup": "quadriceps",
+    "equipmentType": "machine",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 800
+    }
+  },
+  {
+    "id": "cd83b593-2611-42d0-ba2a-f4348e3742e7",
+    "name": "Hip Thrust Machine",
+    "category": "legs",
+    "muscleGroup": "glutes",
+    "equipmentType": "machine",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 800
+    }
+  },
+  {
+    "id": "347fc0b7-f03c-401b-800d-66afad8a2f4b",
+    "name": "Glute Kickback Machine",
+    "category": "legs",
+    "muscleGroup": "glutes",
+    "equipmentType": "machine",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 650
+    }
+  },
+  {
+    "id": "79e23392-b6e0-48c2-aef1-55322d568842",
+    "name": "Abductor Machine",
+    "category": "legs",
+    "muscleGroup": "glutes",
+    "equipmentType": "machine",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "916efa8c-b008-4068-9c5a-2dbea1b6509e",
+    "name": "Adductor Machine",
+    "category": "legs",
+    "muscleGroup": "inner thighs",
+    "equipmentType": "machine",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "af1a61ec-c6ba-4083-8058-29d49ab9f385",
+    "name": "Seated Leg Press",
+    "category": "legs",
+    "muscleGroup": "quadriceps",
+    "equipmentType": "machine",
+    "iconName": "figure.walk",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 800
+    }
+  },
+  {
+    "id": "1729a70e-032e-45b7-bdfe-bc5e12156ff7",
+    "name": "Shoulder Press Machine",
+    "category": "shoulders",
+    "muscleGroup": "deltoids",
+    "equipmentType": "machine",
+    "iconName": "figure.arms.open",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 700
+    }
+  },
+  {
+    "id": "0911d617-a1d0-4c63-9a7c-e11ad0c86f75",
+    "name": "Lateral Raise Machine",
+    "category": "shoulders",
+    "muscleGroup": "deltoids",
+    "equipmentType": "machine",
+    "iconName": "figure.arms.open",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 650
+    }
+  },
+  {
+    "id": "342dc05f-6cc2-457b-bacd-3c745cb3a15f",
+    "name": "Reverse Pec Deck",
+    "category": "shoulders",
+    "muscleGroup": "rear deltoids",
+    "equipmentType": "machine",
+    "iconName": "figure.arms.open",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 650
+    }
+  },
+  {
+    "id": "7a6b9f37-d6e6-46da-b163-f579553cad2e",
+    "name": "Biceps Curl Machine",
+    "category": "arms",
+    "muscleGroup": "biceps",
+    "equipmentType": "machine",
+    "iconName": "figure.boxing",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "ecf657a5-8e35-4dd4-ac01-0970ce8b0dd7",
+    "name": "Triceps Dip Machine",
+    "category": "arms",
+    "muscleGroup": "triceps",
+    "equipmentType": "machine",
+    "iconName": "figure.boxing",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "e27ff235-487e-4536-8d74-84aa84a02c9a",
+    "name": "Ab Crunch Machine",
+    "category": "core",
+    "muscleGroup": "abdominals",
+    "equipmentType": "machine",
+    "iconName": "figure.core.training",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "1b559090-3813-4365-9e0f-5801aebae84d",
+    "name": "Rotary Torso Machine",
+    "category": "core",
+    "muscleGroup": "obliques",
+    "equipmentType": "machine",
+    "iconName": "figure.core.training",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "96a701c0-40aa-439d-a485-a1ff45c29a8f",
+    "name": "Elliptical Trainer",
+    "category": "cardio",
+    "muscleGroup": "cardio",
+    "equipmentType": "machine",
+    "iconName": "figure.run",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  },
+  {
+    "id": "77d9013c-3317-4ee5-a799-eaba8bffa079",
+    "name": "Stair Climber",
+    "category": "cardio",
+    "muscleGroup": "cardio",
+    "equipmentType": "machine",
+    "iconName": "figure.run",
+    "detectionProfile": {
+      "firmwareExerciseType": 0,
+      "requireHold": false,
+      "holdTargetMs": 0,
+      "holdToleranceMs": 0,
+      "minRepDurationMs": 600
+    }
+  }
+]

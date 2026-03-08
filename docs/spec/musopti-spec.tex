@@ -1,0 +1,391 @@
+% Musopti — Boîtier intelligent d'analyse de mouvement
+% Version mise à jour au 4 mars 2026
+
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\geometry{margin=2.5cm}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue
+}
+
+\title{Musopti --- Boîtier intelligent d'analyse de mouvement pour la musculation\\[0.25em]
+{\large Dossier de préparation (version mise à jour)}}
+\author{Projet M1 TSI -- Parcours Objets Connectés -- Université de Poitiers}
+\date{Mars 2026}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+%-------------------------------------------------------------------
+\section{Introduction et vision mise à jour}
+%-------------------------------------------------------------------
+
+\subsection{Contexte}
+
+Musopti est un boîtier embarqué intelligent destiné à l'analyse de mouvements en musculation. Il se fixe sur une barre, un haltère, une machine ou un accessoire de poulie et mesure les accélérations et vitesses angulaires sur trois axes grâce à une IMU (Inertial Measurement Unit).
+
+Par rapport à la version initiale du dossier (orientée principalement sur le développé couché avec pause isométrique), le projet a évolué vers:
+\begin{itemize}
+  \item un \textbf{module universel multi-exercice} (développé couché, squat, soulevé de terre, rowing, etc.) ;
+  \item une \textbf{architecture firmware modulaire} déjà implémentée en ESP-IDF sur ESP32-C6 ;
+  \item une \textbf{application iOS Musopti} fonctionnelle (UI complète) pour la configuration du boîtier, le suivi des séances et l'enregistrement de données brutes ;
+  \item une \textbf{chaîne BLE stabilisée} avec un service GATT custom (événements, configuration, données brutes).
+\end{itemize}
+
+L'objectif reste de fournir un assistant d'entraînement autonome qui améliore la qualité technique des séances sans coach humain, mais la portée a été élargie à l'ensemble des exercices de musculation avec une approche multi-profil configurable.
+
+\subsection{Objectifs actuels}
+
+Les objectifs sont désormais structurés en trois axes:
+\begin{enumerate}[label=\textbf{\alph*)}]
+  \item \textbf{Firmware embarqué} :
+  \begin{itemize}
+    \item acquisition IMU fiable (simulation possible sans matériel) ;
+    \item détection de mouvement générique avec profils d'exercices (début/fin de répétition, phase A / hold / phase B, validation de pause éventuelle) ;
+    \item exposition d'événements structurés vers l'iPhone via BLE ;
+    \item support d'un mode ``recording'' pour envoyer des fenêtres de données IMU brutes.
+  \end{itemize}
+  \item \textbf{Application iOS} :
+  \begin{itemize}
+    \item configuration du boîtier (mode, exercice, paramètres de tempo/hold) ;
+    \item visualisation temps réel (reps, phases, graphique IMU) ;
+    \item suivi complet de séances (workouts planifiés ou libres) avec historique et statistiques avancées ;
+    \item enregistrement et export CSV de données IMU pour un futur entraînement TinyML.
+  \end{itemize}
+  \item \textbf{TinyML et produit final} (phases suivantes) :
+  \begin{itemize}
+    \item apprentissage supervisé pour reconnaître automatiquement les types d'exercices ;
+    \item amélioration de la qualité du feedback (forme, symétrie, tempo) ;
+    \item miniaturisation matérielle et boîtier définitif.
+  \end{itemize}
+\end{enumerate}
+
+%-------------------------------------------------------------------
+\section{Synthèse des avancées depuis la version initiale}
+%-------------------------------------------------------------------
+
+\subsection{Choix carte et architecture matérielle}
+
+La première version du dossier recommandait une carte ESP32-S3 avec IMU intégrée. Après exploration du matériel disponible, le projet s'appuie désormais sur:
+\begin{itemize}
+  \item \textbf{Carte}: Waveshare \emph{ESP32-C6 1.8'' Touch AMOLED Display Development Board} (Wi-Fi 6, BLE 5, Zigbee) ;
+  \item \textbf{Affichage}: écran AMOLED 1.8'' 368$\times$448 (driver SH8601) + tactile capacitif FT3168/FT6146 ;
+  \item \textbf{IMU}: QMI8658 (6 axes) sur bus I\textsuperscript{2}C ;
+  \item \textbf{Audio}: codec ES8311 + haut-parleur (I\textsuperscript{2}S) pour feedback sonore (bips) ;
+  \item \textbf{Alimentation}: batterie Li-Po + gestion de puissance via module \texttt{power\_mgmt}.
+\end{itemize}
+
+Le boîtier physique magnétique reste dans la roadmap, mais l'essentiel du travail logiciel (firmware + iOS) est désormais en place.
+
+\subsection{Firmware Musopti (état actuel)}
+
+Le firmware, écrit en C avec ESP-IDF, est structuré en composants:
+\begin{itemize}
+  \item \texttt{common}~: types partagés (\texttt{imu\_sample\_t}, états de mouvement, événements Musopti, types d'exercice, modes device) ;
+  \item \texttt{imu}~: source IMU (QMI8658 ou simulateur logiciel) ;
+  \item \texttt{motion\_detection}~: machine à états générique pour la détection de répétitions multi-exercices ;
+  \item \texttt{ble\_service}~: service GATT custom (événements, configuration, données brutes IMU) basé sur NimBLE ;
+  \item \texttt{recorder}~: buffer circulaire et flush de fenêtres IMU brutes ;
+  \item \texttt{audio\_feedback}~: génération de tons PCM sur ES8311 (bips début/hold/fin/erreur) ;
+  \item \texttt{display}~: initialisation AMOLED + UI LVGL 368$\times$448 (reps, phase, mode, exercice, statut BLE, batterie) ;
+  \item \texttt{power\_mgmt}~: gestion de base de la puissance (en cours) ;
+  \item \texttt{main}~: orchestrateur de l'application.
+\end{itemize}
+
+Deux modes device sont implémentés:
+\begin{itemize}
+  \item \textbf{Détection} (\texttt{MUSOPTI\_MODE\_DETECTION})~: la boucle \emph{motion\_loop} lit les échantillons IMU, alimente le détecteur, émet des événements de répétition/hold via BLE et déclenche les sons appropriés.
+  \item \textbf{Recording} (\texttt{MUSOPTI\_MODE\_RECORDING})~: les échantillons IMU sont poussés dans le \texttt{recorder}, qui génère des paquets bruts (compactés) envoyés à l'iPhone.
+\end{itemize}
+
+\subsection{Application iOS Musopti (état actuel)}
+
+Une application iOS complète a été développée (Swift 6, SwiftUI, SwiftData, CoreBluetooth, Swift~Charts). Fonctionnalités principales:
+\begin{itemize}
+  \item connexion et scan BLE, avec mode ``UI-only'' sur simulateur ;
+  \item écran de séance temps réel (sélecteur d'exercice, compteur de répétitions, phases, hold, graphique IMU, timer de repos, poids) ;
+  \item gestion de workouts (freeform ou planifiés avec templates) ;
+  \item historique détaillé, statistiques (volume hebdomadaire, fréquence, progression, tempo, comparaison de séances) ;
+  \item enregistrement de données IMU brutes et export CSV ;
+  \item écran de réglages (timer de repos, unités, catalogue d'exercices custom, export/suppression données).
+\end{itemize}
+
+Les couches de service suivantes sont en place:
+\begin{itemize}
+  \item \texttt{BLEManager}~: scan/connexion, GATT, auto-reconnect ;
+  \item \texttt{SessionManager}~: cycle de séance, détection de fin de série par inactivité ;
+  \item \texttt{ExerciseCatalog}~: 61 exercices pré-définis, mapping vers profils de détection firmware ;
+  \item \texttt{RecordingManager}~: pipeline d'enregistrement IMU (binaire + CSV) ;
+  \item \texttt{StatsEngine}~: calcul de statistiques et agrégats.
+\end{itemize}
+
+%-------------------------------------------------------------------
+\section{Spécifications fonctionnelles (version consolidée)}
+%-------------------------------------------------------------------
+
+\subsection{Fonctions essentielles (MVP réalisé côté firmware \& iOS)}
+
+\paragraph{Acquisition de données}
+\begin{itemize}
+  \item lecture continue des axes X, Y, Z (accéléromètre + gyroscope) ;
+  \item fréquence d'échantillonnage typique: 100~Hz (configurable) ;
+  \item stockage dans des structures \texttt{imu\_sample\_t} avec timestamp en $\mu$s.
+\end{itemize}
+
+\paragraph{Détection de mouvement}
+\begin{itemize}
+  \item détection du début et de la fin de répétition ;
+  \item machine à états générique:
+  \begin{itemize}
+    \item \texttt{MOTION\_STATE\_IDLE},
+    \item \texttt{MOTION\_STATE\_PHASE\_A} (phase descendante ou montante selon l'exercice),
+    \item \texttt{MOTION\_STATE\_HOLD} (pause isométrique optionnelle),
+    \item \texttt{MOTION\_STATE\_PHASE\_B},
+    \item \texttt{MOTION\_STATE\_REP\_COMPLETE},
+    \item \texttt{MOTION\_STATE\_REP\_INVALID}.
+  \end{itemize}
+  \item profils d'exercice (\emph{bench press}, \emph{squat}, \emph{deadlift}, générique) avec seuils adaptés ;
+  \item validation optionnelle d'une phase de hold (ex: 3~s en bas au développé couché).
+\end{itemize}
+
+\paragraph{Communication et feedback}
+\begin{itemize}
+  \item service GATT custom avec trois caractéristiques:
+  \begin{itemize}
+    \item \textbf{Event} (read + notify) : événements Musopti ;
+    \item \textbf{Config} (read + write) : configuration du device (mode, exercice, paramètres) ;
+    \item \textbf{Raw Data} (notify) : paquets de données IMU brutes pour le mode recording.
+  \end{itemize}
+  \item feedback sur le boîtier:
+  \begin{itemize}
+    \item affichage (LVGL) des reps, phases, exercice, mode, BLE, batterie ;
+    \item audio (bips) : début de mouvement, hold valide, répétition validée, erreur.
+  \end{itemize}
+  \item feedback sur iOS:
+  \begin{itemize}
+    \item affichage temps réel et historique ;
+    \item stats et graphiques.
+  \end{itemize}
+\end{itemize}
+
+\subsection{Spécifications BLE mises à jour}
+
+Le service Musopti utilise désormais des UUID 128~bits spécifiques:
+\begin{itemize}
+  \item Service~: \texttt{4D55534F-5054-4900-0001-000000000000}
+  \item Char. Event~: \texttt{...0001} (read + notify)
+  \item Char. Config~: \texttt{...0002} (read + write)
+  \item Char. Raw Data~: \texttt{...0003} (notify)
+\end{itemize}
+
+Les payloads sont compacts, binaires et alignés avec les types C utilisés dans le firmware:
+
+\paragraph{Événement (\texttt{musopti\_ble\_event\_payload\_t}, 12~octets)}
+\begin{center}
+\begin{tabular}{@{}ccl@{}}
+\toprule
+Offset & Type & Description \\
+\midrule
+0 & uint8\_t & version (=2) \\
+1 & uint8\_t & \texttt{musopti\_event\_type\_t} (state change, rep, hold, session start/stop) \\
+2 & uint8\_t & \texttt{motion\_state\_t} \\
+3 & uint8\_t & flags (bit0 = hold\_valid) \\
+4 & uint16\_t & rep\_count \\
+6 & uint8\_t & \texttt{musopti\_exercise\_type\_t} \\
+7 & uint8\_t & \texttt{musopti\_device\_mode\_t} \\
+8 & uint32\_t & hold\_duration\_ms \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Configuration (\texttt{musopti\_ble\_config\_payload\_t}, 12~octets)}
+\begin{center}
+\begin{tabular}{@{}ccl@{}}
+\toprule
+Offset & Type & Description \\
+\midrule
+0 & uint8\_t & version (=1) \\
+1 & uint8\_t & device\_mode (\texttt{MUSOPTI\_MODE\_IDLE/DETECTION/RECORDING}) \\
+2 & uint8\_t & exercise\_type (\texttt{EXERCISE\_GENERIC}, \texttt{BENCH\_PRESS}, \dots) \\
+3 & uint8\_t & reserved (0) \\
+4 & uint16\_t & hold\_target\_ms (0 = pas de hold) \\
+6 & uint16\_t & hold\_tolerance\_ms \\
+8 & uint16\_t & min\_rep\_duration\_ms \\
+10 & uint16\_t & sample\_rate\_hz (mode recording) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Paquet Raw Data}
+\begin{itemize}
+  \item en-tête: 1~octet version (=1), 1~octet count ($N \leq 7$) ;
+  \item chaque échantillon (28~octets):
+  \begin{itemize}[nosep]
+    \item 6 x \texttt{float32} (accelX/Y/Z, gyroX/Y/Z) ;
+    \item 1 x \texttt{uint32\_t} (timestamp\_ms).
+  \end{itemize}
+\end{itemize}
+
+%-------------------------------------------------------------------
+\section{Architecture firmware: état actuel}
+%-------------------------------------------------------------------
+
+\subsection{Découpage en composants ESP-IDF}
+
+Le firmware suit les règles d'architecture suivantes:
+\begin{itemize}
+  \item séparation stricte entre:
+  \begin{itemize}
+    \item drivers matériels (\texttt{imu}, \texttt{audio\_feedback}, \texttt{display}, \texttt{power\_mgmt}) ;
+    \item logique métier de détection (\texttt{motion\_detection}) ;
+    \item communication (\texttt{ble\_service}) ;
+    \item orchestration d'application (\texttt{main}).
+  \end{itemize}
+  \item support de modes simulés (\texttt{CONFIG\_MUSOPTI\_IMU\_SIMULATED}, \texttt{MUSOPTI\_DISPLAY\_SIMULATED}, \texttt{MUSOPTI\_AUDIO\_SIMULATED}) pour développement sans carte ;
+  \item boucle principale \emph{motion\_loop} isolée, testable avec des données IMU enregistrées.
+\end{itemize}
+
+\subsection{Machine à états de détection générique}
+
+Le composant \texttt{motion\_detection} implémente une machine à états configurable via une structure:
+\begin{itemize}
+  \item seuils bas d'accélération et de gyroscope pour l'état quasi-statique ;
+  \item seuil d'accélération ``en mouvement'' ;
+  \item indicateur \emph{require\_hold} avec cible/ tolérance en ms ;
+  \item durée minimale de répétition ;
+  \item timeout d'inactivité pour revenir à l'état IDLE.
+\end{itemize}
+
+Plusieurs profils sont définis:
+\begin{itemize}
+  \item \textbf{GENERIC} : pas de hold obligatoire, détection simple des répétitions ;
+  \item \textbf{BENCH\_PRESS} : hold obligatoire de 3~s en bas (avec tolérance $\pm$200~ms) ;
+  \item \textbf{SQUAT}, \textbf{DEADLIFT}~: paramètres de durée et de seuils adaptés, sans hold.
+\end{itemize}
+
+Les états \texttt{REP\_COMPLETE} et \texttt{REP\_INVALID} sont transitoires: ils reviennent immédiatement à \texttt{IDLE} après émission de l'événement, ce qui évite le code mort de la première version.
+
+%-------------------------------------------------------------------
+\section{Architecture applicative iOS: état actuel}
+%-------------------------------------------------------------------
+
+\subsection{Couches et principaux modules}
+
+L'architecture suit un schéma MVVM/service:
+\begin{itemize}
+  \item \textbf{SwiftUI Views}~: \texttt{ConnectionView}, \texttt{LiveSessionView}, \texttt{WorkoutsView}, \texttt{HistoryView}, \texttt{RecordingsView}, \texttt{SettingsView} ;
+  \item \textbf{Services}:
+  \begin{itemize}
+    \item \texttt{BLEManager}~: scan, connexion, GATT, auto-reconnect, mode UI-only en simulateur ;
+    \item \texttt{SessionManager}~: gestion d'une séance active (exercice courant, séries, repos, historique d'accélération) ;
+    \item \texttt{ExerciseCatalog}~: chargement du catalogue d'exercices (61 exercices, 7 catégories) ;
+    \item \texttt{RecordingManager}~: pipeline d'enregistrement (fichier binaire + CSV) ;
+    \item \texttt{StatsEngine}~: agrégats statistiques (volume par semaine, fréquence de séances, progression par exercice).
+  \end{itemize}
+  \item \textbf{Données} (SwiftData):
+  \begin{itemize}
+    \item \texttt{Exercise}, \texttt{WorkoutTemplate}, \texttt{WorkoutSession}, \texttt{IMURecording} ;
+    \item modèles imbriqués \texttt{ExerciseLog}, \texttt{SetLog}, \texttt{WorkoutTemplateEntry}.
+  \end{itemize}
+\end{itemize}
+
+\subsection{Ecrans principaux}
+
+\paragraph{Connexion}
+Scan des périphériques ``Musopti'', auto-reconnexion au dernier device connu, gestion des états Bluetooth. Sur simulateur, le BLE étant inexistant, l'app bascule automatiquement en mode UI-only pour permettre d'explorer l'interface.
+
+\paragraph{Séance (Live Session)}
+Affiche:
+\begin{itemize}
+  \item sélecteur d'exercice (catégories \emph{chest, back, legs, shoulders, arms, core, cardio, custom}) ;
+  \item compteur de répétitions en gros caractères ;
+  \item pilule d'état de phase (Phase~A, Hold, Phase~B, Idle, etc.) ;
+  \item badge de résultat de hold (valide / trop court / trop long) ;
+  \item graphique temps réel de la magnitude d'accélération (Swift~Charts) ;
+  \item timer de repos auto-détecté (inactivité après série) ;
+  \item poids courant de la série.
+\end{itemize}
+
+\paragraph{Workouts}
+Gestion de séances \emph{freeform} ou d'entraînements planifiés (templates). Chaque template contient une liste ordonnée d'exercices avec nombre de séries/reps cibles.
+
+\paragraph{Historique et statistiques}
+Liste des séances, vue détaillée par séance (par exercice, par série), et tableau de bord statistique:
+\begin{itemize}
+  \item volume hebdomadaire (kg$\times$reps) ;
+  \item nombre de séances par semaine ;
+  \item progression par exercice (volume ou meilleure série).
+\end{itemize}
+
+\paragraph{Recording}
+Permet de configurer un enregistrement IMU (exercice, fréquence d'échantillonnage), de lancer/arrêter l'enregistrement, de visualiser les enregistrements passés et d'exporter en CSV pour Edge~Impulse ou analyses Python.
+
+\paragraph{Settings}
+Regroupe les paramètres (timer de repos, unités, catalogue custom, export JSON complet de l'historique, suppression de toutes les données, informations version).
+
+%-------------------------------------------------------------------
+\section{Roadmap mise à jour}
+%-------------------------------------------------------------------
+
+\subsection{Points déjà couverts}
+
+\begin{itemize}[nosep]
+  \item Firmware:
+  \begin{itemize}
+    \item acquisition IMU (mode simulé) ;
+    \item détection générique de répétitions avec profils d'exercices ;
+    \item service BLE complet (événements, configuration, données brutes) ;
+    \item intégration display/audio/recorder/main orchestrateur.
+  \end{itemize}
+  \item iOS:
+  \begin{itemize}
+    \item structure de projet et architecture de services ;
+    \item écran de connexion, gestion des états BLE, mode simulateur ;
+    \item écran de séance, workouts, historique, statistiques, recording, settings.
+  \end{itemize}
+\end{itemize}
+
+\subsection{Travaux restants (priorisés)}
+
+\begin{enumerate}
+  \item Finaliser et tester la lecture IMU réelle sur ESP32-C6 (remplacement complet du simulateur).
+  \item Calibrer précisément les profils de détection pour plusieurs exercices (bench, squat, deadlift, rowing, etc.) à partir de données réelles.
+  \item Aligner complètement la documentation BLE (README, dossiers) avec la version v2 des payloads.
+  \item Implémenter la collecte et l'export systématique de datasets IMU (via l'app iOS) pour entraînement TinyML.
+  \item Démarrer la phase TinyML (Edge~Impulse ou workflow équivalent) pour la reconnaissance d'exercices.
+  \item Concevoir et imprimer le boîtier physique définitif (\emph{feature complete} côté logiciel avant optimisation mécanique).
+  \item Étendre le support Apple Watch (feedback haptique) une fois l'iOS app stabilisée.
+\end{enumerate}
+
+%-------------------------------------------------------------------
+\section{Conclusion}
+%-------------------------------------------------------------------
+
+Cette version mise à jour du dossier Musopti reflète l'état actuel du projet:
+\begin{itemize}
+  \item la plateforme matérielle est arrêtée (ESP32-C6 Touch AMOLED + QMI8658 + ES8311) ;
+  \item le firmware suit une architecture modulaire propre, avec séparation claire drivers / détection / BLE / UI ;
+  \item l'application iOS est déjà largement implémentée et exploitable pour explorer l'UX cible et valider le protocole BLE ;
+  \item les prochaines étapes majeures concernent essentiellement l'IMU réelle, la calibration, le TinyML et le boîtier physique.
+\end{itemize}
+
+Ce document LaTeX peut être compilé en PDF (via \texttt{pdflatex} ou \texttt{latexmk}) et remplacer progressivement l'ancien \emph{``Dossier Projet Boîtier Musculation''} comme référence centrale du projet.
+
+\end{document}

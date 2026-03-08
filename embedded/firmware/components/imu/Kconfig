@@ -1,0 +1,11 @@
+menu "Musopti IMU"
+
+    config MUSOPTI_IMU_SIMULATED
+        bool "Use simulated IMU data instead of hardware"
+        default y
+        help
+            When enabled, the IMU module generates synthetic motion data
+            instead of reading the QMI8658 sensor over I2C.
+            Useful for testing motion detection logic without the board.
+
+endmenu

@@ -1,0 +1,41 @@
+# OS / editor
+**/.DS_Store
+.vscode/
+.cache/
+
+# Embedded build artifacts
+embedded/firmware/build/
+embedded/firmware/build-*/
+embedded/firmware/.cache/
+embedded/firmware/managed_components/
+embedded/firmware/sdkconfig.old
+embedded/firmware/sdkconfig.backup
+embedded/firmware/host-tests/build/
+embedded/firmware/host-tests/build-*/
+
+# iOS build artifacts
+apps/ios/.build/
+apps/ios/.swiftpm/
+apps/ios/build/
+apps/ios/DerivedData/
+**/*.xcuserdata
+**/xcuserdata/
+**/*.xcuserstate
+
+# Binary artifacts
+*.bin
+*.elf
+*.map
+*.hex
+
+# Logs and temp
+*.log
+*.tmp
+
+# Data exports (keep structure, ignore large files)
+data/datasets/*.csv
+data/datasets/*.json
+
+# Local vendor dependencies
+vendor/esp-idf/
+vendor/waveshare-esp32-c6-touch-amoled-1.8/

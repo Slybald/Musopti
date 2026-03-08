@@ -1,0 +1,5 @@
+exercise=generic
+rep_count=1
+hold_valid_count=0
+hold_invalid_count=0
+session_stop=0

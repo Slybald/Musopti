@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Musopti — Device Simulator</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  h1 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .device-frame {
+    width: 404px;
+    background: #111;
+    border-radius: 32px;
+    padding: 18px;
+    box-shadow: 0 0 40px rgba(0,100,255,0.08), 0 8px 32px rgba(0,0,0,0.5);
+  }
+
+  .screen {
+    width: 368px;
+    height: 448px;
+    background: #0a0a14;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* ---- status bar ---- */
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 14px;
+    font-size: 11px;
+    color: #666;
+  }
+  .status-bar .ble { color: #888; }
+  .status-bar .ble.on { color: #44cc44; }
+  .status-bar .battery { color: #888; }
+
+  /* ---- mode + exercise ---- */
+  .mode-bar {
+    text-align: center;
+    padding: 4px 0 0;
+  }
+  .mode-bar .mode {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #0af;
+  }
+  .mode-bar .mode.recording { color: #ff4444; }
+  .mode-bar .exercise {
+    font-size: 12px;
+    color: #556;
+    margin-top: 2px;
+  }
+
+  /* ---- rep counter ---- */
+  .rep-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .rep-count {
+    font-size: 96px;
+    font-weight: 200;
+    line-height: 1;
+    color: #fff;
+  }
+  .rep-label {
+    font-size: 12px;
+    color: #444;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ---- phase pill ---- */
+  .phase-pill {
+    text-align: center;
+    padding: 6px 0;
+  }
+  .phase-pill .pill {
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: #1a1a2e;
+    color: #555;
+    transition: all 0.2s;
+  }
+  .phase-pill .pill.phase_a  { background: #332800; color: #ffaa00; }
+  .phase-pill .pill.hold     { background: #002233; color: #00ccff; }
+  .phase-pill .pill.phase_b  { background: #332800; color: #ffaa00; }
+  .phase-pill .pill.rep_complete { background: #0a2a0a; color: #44cc44; }
+  .phase-pill .pill.rep_invalid  { background: #2a0a0a; color: #ff4444; }
+
+  /* ---- hold result ---- */
+  .hold-result {
+    text-align: center;
+    padding: 8px 0 16px;
+    font-size: 13px;
+    color: #666;
+    min-height: 40px;
+  }
+  .hold-result.valid { color: #44cc44; }
+  .hold-result.invalid { color: #ff4444; }
+
+  /* ---- tone flash overlay ---- */
+  .tone-flash {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.05s;
+    border-radius: 16px;
+  }
+  .tone-flash.active { opacity: 1; transition: opacity 0s; }
+  .tone-flash.start { background: radial-gradient(circle at center, rgba(255,170,0,0.15), transparent 70%); }
+  .tone-flash.hold  { background: radial-gradient(circle at center, rgba(0,200,255,0.15), transparent 70%); }
+  .tone-flash.complete { background: radial-gradient(circle at center, rgba(68,204,68,0.15), transparent 70%); }
+  .tone-flash.error { background: radial-gradient(circle at center, rgba(255,68,68,0.2), transparent 70%); }
+
+  /* ---- controls (outside device) ---- */
+  .controls {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 404px;
+  }
+
+  .controls .row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .controls select, .controls button {
+    font-family: inherit;
+    font-size: 13px;
+    padding: 8px 14px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #16213e;
+    color: #ccc;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .controls button:hover { background: #1a2a5e; }
+  .controls select { flex: 1; }
+  .controls button { flex: 1; }
+  .controls button.primary {
+    background: #0055aa;
+    border-color: #0066cc;
+    color: #fff;
+  }
+  .controls button.primary:hover { background: #0066cc; }
+  .controls button.danger {
+    background: #661111;
+    border-color: #882222;
+    color: #ff8888;
+  }
+  .controls button.danger:hover { background: #882222; }
+
+  .controls .row-label {
+    font-size: 10px;
+    color: #444;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Musopti Device Simulator — 368 × 448</h1>
+
+<div class="device-frame">
+  <div class="screen" id="screen">
+    <div class="tone-flash" id="toneFlash"></div>
+
+    <div class="status-bar">
+      <span class="ble" id="bleStatus">BLE --</span>
+      <span class="battery" id="batteryStatus">85 %</span>
+    </div>
+
+    <div class="mode-bar">
+      <div class="mode" id="modeLabel">DETECTION</div>
+      <div class="exercise" id="exerciseLabel">Generic</div>
+    </div>
+
+    <div class="rep-section">
+      <div class="rep-count" id="repCount">0</div>
+      <div class="rep-label">reps</div>
+    </div>
+
+    <div class="phase-pill">
+      <span class="pill" id="phasePill">IDLE</span>
+    </div>
+
+    <div class="hold-result" id="holdResult"></div>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="row-label">Configuration</div>
+  <div class="row">
+    <select id="selExercise">
+      <option value="generic">Generic</option>
+      <option value="bench_press">Bench Press</option>
+      <option value="squat">Squat</option>
+      <option value="deadlift">Deadlift</option>
+    </select>
+    <select id="selMode">
+      <option value="detection">Detection</option>
+      <option value="recording">Recording</option>
+    </select>
+  </div>
+
+  <div class="row-label">Simulation</div>
+  <div class="row">
+    <button class="primary" id="btnSimRep">Simulate Rep</button>
+    <button id="btnToggleBle">Toggle BLE</button>
+    <button class="danger" id="btnReset">Reset</button>
+  </div>
+</div>
+
+<script>
+const STATE = {
+  mode: 'detection',
+  exercise: 'generic',
+  reps: 0,
+  phase: 'idle',
+  holdMs: 0,
+  holdValid: false,
+  bleConnected: false,
+  batteryPct: 85,
+};
+
+const PROFILES = {
+  generic:     { requireHold: false, holdTarget: 0, holdTolerance: 0, minRep: 600 },
+  bench_press: { requireHold: true,  holdTarget: 3000, holdTolerance: 200, minRep: 1000 },
+  squat:       { requireHold: false, holdTarget: 0, holdTolerance: 0, minRep: 800 },
+  deadlift:    { requireHold: false, holdTarget: 0, holdTolerance: 0, minRep: 1200 },
+};
+
+const $ = id => document.getElementById(id);
+
+function render() {
+  $('repCount').textContent = STATE.reps;
+
+  const pill = $('phasePill');
+  pill.textContent = STATE.phase.toUpperCase();
+  pill.className = 'pill ' + STATE.phase;
+
+  $('modeLabel').textContent = STATE.mode.toUpperCase();
+  $('modeLabel').className = 'mode' + (STATE.mode === 'recording' ? ' recording' : '');
+
+  $('exerciseLabel').textContent = STATE.exercise.replace('_', ' ');
+
+  const ble = $('bleStatus');
+  ble.textContent = STATE.bleConnected ? 'BLE OK' : 'BLE --';
+  ble.className = 'ble' + (STATE.bleConnected ? ' on' : '');
+
+  $('batteryStatus').textContent = STATE.batteryPct + ' %';
+
+  const hr = $('holdResult');
+  if (STATE.holdMs > 0) {
+    hr.textContent = `Hold: ${STATE.holdMs} ms ${STATE.holdValid ? 'OK' : '✗'}`;
+    hr.className = 'hold-result ' + (STATE.holdValid ? 'valid' : 'invalid');
+  } else {
+    hr.textContent = '';
+    hr.className = 'hold-result';
+  }
+}
+
+function flashTone(type) {
+  const el = $('toneFlash');
+  el.className = 'tone-flash ' + type + ' active';
+  setTimeout(() => { el.className = 'tone-flash'; }, 150);
+}
+
+async function sleep(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
+async function simulateRep() {
+  const prof = PROFILES[STATE.exercise];
+
+  // Phase A
+  STATE.phase = 'phase_a';
+  render();
+  flashTone('start');
+  await sleep(800 + Math.random() * 400);
+
+  // Hold (if required)
+  if (prof.requireHold) {
+    STATE.phase = 'hold';
+    render();
+    flashTone('hold');
+
+    const holdDuration = prof.holdTarget + (Math.random() * 2 - 1) * prof.holdTolerance * 1.5;
+    const holdMs = Math.max(200, Math.round(holdDuration));
+    await sleep(holdMs);
+
+    STATE.holdMs = holdMs;
+    const diff = Math.abs(holdMs - prof.holdTarget);
+    STATE.holdValid = diff <= prof.holdTolerance;
+  }
+
+  // Phase B
+  STATE.phase = 'phase_b';
+  render();
+  await sleep(600 + Math.random() * 400);
+
+  // Rep complete
+  STATE.reps++;
+  STATE.phase = 'rep_complete';
+  render();
+  flashTone('complete');
+  await sleep(600);
+
+  // Back to idle
+  STATE.phase = 'idle';
+  render();
+}
+
+$('selExercise').addEventListener('change', e => {
+  STATE.exercise = e.target.value;
+  STATE.holdMs = 0;
+  render();
+});
+
+$('selMode').addEventListener('change', e => {
+  STATE.mode = e.target.value;
+  render();
+});
+
+$('btnSimRep').addEventListener('click', () => {
+  if (STATE.mode === 'recording') {
+    flashTone('error');
+    return;
+  }
+  simulateRep();
+});
+
+$('btnToggleBle').addEventListener('click', () => {
+  STATE.bleConnected = !STATE.bleConnected;
+  render();
+});
+
+$('btnReset').addEventListener('click', () => {
+  STATE.reps = 0;
+  STATE.phase = 'idle';
+  STATE.holdMs = 0;
+  STATE.holdValid = false;
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
