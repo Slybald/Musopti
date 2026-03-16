@@ -68,8 +68,10 @@ This repository does not version heavy external dependencies. The expected local
 git clone https://github.com/espressif/esp-idf.git vendor/esp-idf
 ```
 
-Board-specific runtime drivers (QMI8658, SH8601, FT5x06, TCA9554) are resolved via the
+Board-specific display/touch drivers (SH8601, FT5x06, TCA9554) are resolved via the
 ESP Component Registry from `main/idf_component.yml` during the firmware configure step.
+The QMI8658 IMU driver is vendored locally under `embedded/firmware/components/qmi8658`
+to avoid a broken registry dependency declaration on recent ESP-IDF releases.
 
 If you use the shell helper installed locally on this machine, run `idfenv` before building firmware.
 
