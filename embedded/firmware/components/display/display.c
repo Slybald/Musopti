@@ -22,7 +22,6 @@ static const char *TAG = "display";
 #include "esp_lcd_panel_io.h"
 #include "esp_lcd_panel_ops.h"
 #include "esp_lcd_sh8601.h"
-#include "esp_lcd_touch_ft5x06.h"
 #include "esp_io_expander_tca9554.h"
 
 /* ---- pin definitions (match Waveshare BSP) ---- */
@@ -46,7 +45,6 @@ static const char *TAG = "display";
 #define LVGL_TASK_PRIO       2
 
 static SemaphoreHandle_t s_lvgl_mux;
-static esp_lcd_touch_handle_t s_tp;
 
 /* LVGL widgets */
 static lv_obj_t *s_lbl_reps;
@@ -118,22 +116,6 @@ static void update_cb(lv_disp_drv_t *drv)
     }
 }
 
-static void touch_cb(lv_indev_drv_t *drv, lv_indev_data_t *data)
-{
-    esp_lcd_touch_handle_t tp = (esp_lcd_touch_handle_t)drv->user_data;
-    uint16_t x, y;
-    uint8_t cnt = 0;
-    esp_lcd_touch_read_data(tp);
-    bool pressed = esp_lcd_touch_get_coordinates(tp, &x, &y, NULL, &cnt, 1);
-    if (pressed && cnt > 0) {
-        data->point.x = x;
-        data->point.y = y;
-        data->state = LV_INDEV_STATE_PRESSED;
-    } else {
-        data->state = LV_INDEV_STATE_RELEASED;
-    }
-}
-
 static void tick_cb(void *arg)
 {
     (void)arg;
@@ -193,7 +175,7 @@ static void build_ui(void)
     /* Big rep counter */
     s_lbl_reps = lv_label_create(scr);
     lv_label_set_text(s_lbl_reps, "0");
-    lv_obj_set_style_text_font(s_lbl_reps, &lv_font_montserrat_48, 0);
+    lv_obj_set_style_text_font(s_lbl_reps, LV_FONT_DEFAULT, 0);
     lv_obj_set_style_text_color(s_lbl_reps, lv_color_hex(0xffffff), 0);
     lv_obj_align(s_lbl_reps, LV_ALIGN_CENTER, 0, -30);
 
@@ -205,7 +187,7 @@ static void build_ui(void)
     /* Phase indicator */
     s_lbl_state = lv_label_create(scr);
     lv_label_set_text(s_lbl_state, "IDLE");
-    lv_obj_set_style_text_font(s_lbl_state, &lv_font_montserrat_22, 0);
+    lv_obj_set_style_text_font(s_lbl_state, LV_FONT_DEFAULT, 0);
     lv_obj_set_style_text_color(s_lbl_state, lv_color_hex(0x44cc44), 0);
     lv_obj_align(s_lbl_state, LV_ALIGN_CENTER, 0, 60);
 
@@ -274,21 +256,6 @@ static esp_err_t hw_display_init(void)
     ESP_ERROR_CHECK(esp_lcd_panel_init(panel));
     ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(panel, true));
 
-    /* Touch */
-    esp_lcd_panel_io_handle_t tp_io = NULL;
-    const esp_lcd_panel_io_i2c_config_t tp_io_cfg = ESP_LCD_TOUCH_IO_I2C_FT5x06_CONFIG();
-    ESP_ERROR_CHECK(esp_lcd_new_panel_io_i2c((esp_lcd_i2c_bus_handle_t)TOUCH_HOST,
-                                             &tp_io_cfg, &tp_io));
-    const esp_lcd_touch_config_t tp_cfg = {
-        .x_max = DISPLAY_H_RES,
-        .y_max = DISPLAY_V_RES,
-        .rst_gpio_num = -1,
-        .int_gpio_num = PIN_TOUCH_INT,
-        .levels = { .reset = 0, .interrupt = 0 },
-        .flags = { .swap_xy = 0, .mirror_x = 0, .mirror_y = 0 },
-    };
-    ESP_ERROR_CHECK(esp_lcd_touch_new_i2c_ft5x06(tp_io, &tp_cfg, &s_tp));
-
     /* LVGL init */
     lv_init();
 
@@ -318,15 +285,6 @@ static esp_err_t hw_display_init(void)
     esp_timer_handle_t tick_timer;
     ESP_ERROR_CHECK(esp_timer_create(&tick_args, &tick_timer));
     ESP_ERROR_CHECK(esp_timer_start_periodic(tick_timer, LVGL_TICK_PERIOD_MS * 1000));
-
-    /* Touch input device */
-    static lv_indev_drv_t indev_drv;
-    lv_indev_drv_init(&indev_drv);
-    indev_drv.type = LV_INDEV_TYPE_POINTER;
-    indev_drv.disp = disp;
-    indev_drv.read_cb = touch_cb;
-    indev_drv.user_data = s_tp;
-    lv_indev_drv_register(&indev_drv);
 
     s_lvgl_mux = xSemaphoreCreateMutex();
     assert(s_lvgl_mux);
