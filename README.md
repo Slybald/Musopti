@@ -66,8 +66,10 @@ This repository does not version heavy external dependencies. The expected local
 
 ```bash
 git clone https://github.com/espressif/esp-idf.git vendor/esp-idf
-git clone https://github.com/waveshareteam/ESP32-C6-Touch-AMOLED-1.8.git vendor/waveshare-esp32-c6-touch-amoled-1.8
 ```
+
+Board-specific runtime drivers (QMI8658, SH8601, FT5x06, TCA9554) are resolved via the
+ESP Component Registry from `main/idf_component.yml` during the firmware configure step.
 
 If you use the shell helper installed locally on this machine, run `idfenv` before building firmware.
 
