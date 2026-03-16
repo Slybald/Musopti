@@ -38,11 +38,16 @@ idf.py build
 idf.py flash monitor
 ```
 
-### Simulated IMU Mode (no hardware needed)
+The committed firmware config is hardware-first: the real IMU, display, and audio
+paths are enabled by default so a board flash does not silently run in simulation mode.
+
+### Simulated Peripheral Mode (no hardware needed)
 
 ```bash
 idf.py menuconfig
 # -> Musopti IMU -> Enable "Use simulated IMU data instead of hardware"
+# -> Musopti Display -> Enable "Use simulated display (log only, no LVGL)"
+# -> Musopti Audio -> Enable "Use simulated audio (log only, no I2S)"
 idf.py build
 ```
 

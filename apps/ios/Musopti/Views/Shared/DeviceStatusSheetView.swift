@@ -30,6 +30,9 @@ struct DeviceStatusSheetView: View {
                     statusRow("Last Event", value: bleManager.deviceStatus.lastEventAt?.shortRelativeTimestamp ?? "Unavailable")
                     statusRow("Battery", value: bleManager.deviceStatus.batteryPercent.map { "\($0)%" } ?? "Unavailable on current firmware")
                     statusRow("Firmware", value: bleManager.deviceStatus.firmwareVersion?.title ?? "Unavailable on current firmware")
+                    statusRow("IMU Source", value: bleManager.deviceStatus.isIMUSimulated ? "Simulated" : "Hardware")
+                    statusRow("Display", value: bleManager.deviceStatus.isDisplaySimulated ? "Simulated" : "Hardware")
+                    statusRow("Audio", value: bleManager.deviceStatus.isAudioSimulated ? "Simulated" : "Hardware")
                     if let error = bleManager.lastErrorMessage, !error.isEmpty {
                         statusRow("Last Error", value: error)
                     }

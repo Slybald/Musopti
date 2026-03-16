@@ -1,7 +1,7 @@
 menu "Musopti Audio"
     config MUSOPTI_AUDIO_SIMULATED
         bool "Use simulated audio (log only, no I2S)"
-        default y
+        default n
         help
             When enabled, tone playback is simulated via log messages.
             Disable this when building for the real board with ES8311.
