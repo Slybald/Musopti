@@ -32,6 +32,9 @@ struct DeviceStatus: Equatable {
     var appliedSampleRateHz: Int?
     var configRevision: Int?
     var firmwareVersion: MusoptiFirmwareVersion?
+    var isIMUSimulated: Bool
+    var isDisplaySimulated: Bool
+    var isAudioSimulated: Bool
     var lastEventAt: Date?
     var lastStatusAt: Date?
     var isRecovering: Bool
@@ -49,6 +52,9 @@ struct DeviceStatus: Equatable {
         appliedSampleRateHz: nil,
         configRevision: nil,
         firmwareVersion: nil,
+        isIMUSimulated: false,
+        isDisplaySimulated: false,
+        isAudioSimulated: false,
         lastEventAt: nil,
         lastStatusAt: nil,
         isRecovering: false,
@@ -58,6 +64,24 @@ struct DeviceStatus: Equatable {
 
     var isReady: Bool {
         connectionState == .ready && bluetoothState == .poweredOn
+    }
+
+    var hasSimulatedPeripherals: Bool {
+        isIMUSimulated || isDisplaySimulated || isAudioSimulated
+    }
+
+    var simulatedComponentsLabel: String {
+        var components: [String] = []
+        if isIMUSimulated {
+            components.append("IMU")
+        }
+        if isDisplaySimulated {
+            components.append("display")
+        }
+        if isAudioSimulated {
+            components.append("audio")
+        }
+        return components.joined(separator: ", ")
     }
 
     var bluetoothTitle: String {

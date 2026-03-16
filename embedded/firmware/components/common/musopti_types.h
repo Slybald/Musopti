@@ -87,6 +87,8 @@ typedef enum {
     MUSOPTI_STATUS_FLAG_BATTERY_VALID   = 1 << 0,
     MUSOPTI_STATUS_FLAG_RECORDING_ACTIVE = 1 << 1,
     MUSOPTI_STATUS_FLAG_IMU_SIMULATED   = 1 << 2,
+    MUSOPTI_STATUS_FLAG_DISPLAY_SIMULATED = 1 << 3,
+    MUSOPTI_STATUS_FLAG_AUDIO_SIMULATED = 1 << 4,
 } musopti_ble_status_flags_t;
 
 typedef struct __attribute__((packed)) {
