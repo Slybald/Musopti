@@ -8,20 +8,16 @@ extension Data {
 
     func readUInt16LE(at offset: Int) -> UInt16? {
         guard offset >= 0, offset + 2 <= count else { return nil }
-        var value: UInt16 = 0
-        withUnsafeMutableBytes(of: &value) { destination in
-            copyBytes(to: destination, from: offset..<(offset + 2))
-        }
-        return UInt16(littleEndian: value)
+        return UInt16(self[offset])
+            | (UInt16(self[offset + 1]) << 8)
     }
 
     func readUInt32LE(at offset: Int) -> UInt32? {
         guard offset >= 0, offset + 4 <= count else { return nil }
-        var value: UInt32 = 0
-        withUnsafeMutableBytes(of: &value) { destination in
-            copyBytes(to: destination, from: offset..<(offset + 4))
-        }
-        return UInt32(littleEndian: value)
+        return UInt32(self[offset])
+            | (UInt32(self[offset + 1]) << 8)
+            | (UInt32(self[offset + 2]) << 16)
+            | (UInt32(self[offset + 3]) << 24)
     }
 
     func readFloat32LE(at offset: Int) -> Float? {
