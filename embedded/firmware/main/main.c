@@ -172,6 +172,12 @@ static void publish_ble_status(void)
 #if defined(CONFIG_MUSOPTI_IMU_SIMULATED)
     status.flags |= MUSOPTI_STATUS_FLAG_IMU_SIMULATED;
 #endif
+#if defined(CONFIG_MUSOPTI_DISPLAY_SIMULATED)
+    status.flags |= MUSOPTI_STATUS_FLAG_DISPLAY_SIMULATED;
+#endif
+#if defined(CONFIG_MUSOPTI_AUDIO_SIMULATED)
+    status.flags |= MUSOPTI_STATUS_FLAG_AUDIO_SIMULATED;
+#endif
 
     ble_service_set_status(&status);
 }

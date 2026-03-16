@@ -1,9 +1,9 @@
 CONFIG_IDF_TARGET="esp32c6"
 
-# Musopti: simulated peripherals for building without the board
-CONFIG_MUSOPTI_IMU_SIMULATED=y
-CONFIG_MUSOPTI_AUDIO_SIMULATED=y
-CONFIG_MUSOPTI_DISPLAY_SIMULATED=y
+# Musopti: hardware-first defaults for the real board
+# CONFIG_MUSOPTI_IMU_SIMULATED is not set
+# CONFIG_MUSOPTI_AUDIO_SIMULATED is not set
+# CONFIG_MUSOPTI_DISPLAY_SIMULATED is not set
 
 # BLE (NimBLE)
 CONFIG_BT_ENABLED=y

@@ -4181,19 +4181,19 @@ CONFIG_WL_SECTOR_SIZE=4096
 #
 # Musopti Audio
 #
-CONFIG_MUSOPTI_AUDIO_SIMULATED=y
+# CONFIG_MUSOPTI_AUDIO_SIMULATED is not set
 # end of Musopti Audio
 
 #
 # Musopti Display
 #
-CONFIG_MUSOPTI_DISPLAY_SIMULATED=y
+# CONFIG_MUSOPTI_DISPLAY_SIMULATED is not set
 # end of Musopti Display
 
 #
 # Musopti IMU
 #
-CONFIG_MUSOPTI_IMU_SIMULATED=y
+# CONFIG_MUSOPTI_IMU_SIMULATED is not set
 # end of Musopti IMU
 # end of Component config
 

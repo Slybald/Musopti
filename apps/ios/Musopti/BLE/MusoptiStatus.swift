@@ -37,6 +37,14 @@ struct MusoptiStatus: Equatable {
         (flags & 0x04) != 0
     }
 
+    var isDisplaySimulated: Bool {
+        (flags & 0x08) != 0
+    }
+
+    var isAudioSimulated: Bool {
+        (flags & 0x10) != 0
+    }
+
     var motionPhase: MotionPhase {
         switch motionStateRaw {
         case 0: return .idle

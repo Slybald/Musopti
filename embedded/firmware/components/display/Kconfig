@@ -1,7 +1,7 @@
 menu "Musopti Display"
     config MUSOPTI_DISPLAY_SIMULATED
         bool "Use simulated display (log only, no LVGL)"
-        default y
+        default n
         help
             When enabled, the display module logs state updates instead of
             driving the SH8601 AMOLED panel.  Disable when building for

@@ -57,9 +57,13 @@ struct DeviceBanner: View {
             || bleManager.connectionState == .offline
             || bleManager.connectionState == .error
             || !bleManager.isConfigInSync
+            || bleManager.deviceStatus.hasSimulatedPeripherals
     }
 
     private var bannerTitle: String {
+        if bleManager.deviceStatus.hasSimulatedPeripherals {
+            return "Simulated firmware active"
+        }
         if !bleManager.isConfigInSync {
             return "Config not synced"
         }
@@ -77,6 +81,9 @@ struct DeviceBanner: View {
     }
 
     private var bannerSubtitle: String {
+        if bleManager.deviceStatus.hasSimulatedPeripherals {
+            return "Using \(bleManager.deviceStatus.simulatedComponentsLabel). Check the device status before validating hardware behavior."
+        }
         if !bleManager.isConfigInSync {
             if let revision = bleManager.deviceStatus.configRevision,
                let lastStatus = bleManager.deviceStatus.lastStatusAt {
@@ -97,6 +104,9 @@ struct DeviceBanner: View {
     }
 
     private var bannerIcon: String {
+        if bleManager.deviceStatus.hasSimulatedPeripherals {
+            return "wrench.and.screwdriver.fill"
+        }
         if !bleManager.isConfigInSync {
             return "exclamationmark.triangle.fill"
         }
@@ -107,6 +117,9 @@ struct DeviceBanner: View {
     }
 
     private var bannerBackground: some ShapeStyle {
+        if bleManager.deviceStatus.hasSimulatedPeripherals {
+            return MusoptiTheme.warning.gradient
+        }
         if !bleManager.isConfigInSync {
             return MusoptiTheme.warning.gradient
         }

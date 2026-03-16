@@ -220,9 +220,7 @@ final class RecordingManager {
         bleManager.writeConfig(config, verifyReadBack: true)
 
         bleManager.onRawDataReceived = { [weak self] samples in
-            Task { @MainActor in
-                self?.handleSamples(samples)
-            }
+            self?.handleSamples(samples)
         }
 
         timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { [weak self] _ in
