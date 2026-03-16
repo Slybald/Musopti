@@ -12,6 +12,7 @@ static imu_config_t s_config;
 #if !defined(CONFIG_MUSOPTI_IMU_SIMULATED)
 
 #include "driver/i2c_master.h"
+#include "i2c_bus.h"
 #include "qmi8658.h"
 
 #define I2C_SCL_IO  7
@@ -46,21 +47,9 @@ static esp_err_t hw_apply_config(void)
 
 static esp_err_t hw_init(void)
 {
-    i2c_master_bus_config_t bus_cfg = {
-        .i2c_port = I2C_PORT,
-        .sda_io_num = I2C_SDA_IO,
-        .scl_io_num = I2C_SCL_IO,
-        .clk_source = I2C_CLK_SRC_DEFAULT,
-        .glitch_ignore_cnt = 7,
-        .intr_priority = 0,
-        .trans_queue_depth = 0,
-        .flags.enable_internal_pullup = true,
-    };
-
     i2c_master_bus_handle_t bus;
-    esp_err_t ret = i2c_new_master_bus(&bus_cfg, &bus);
+    esp_err_t ret = musopti_i2c_bus_get(I2C_PORT, I2C_SDA_IO, I2C_SCL_IO, I2C_FREQ_HZ, &bus);
     if (ret != ESP_OK) {
-        ESP_LOGE(TAG, "I2C bus init failed: %d", ret);
         return ret;
     }
 

@@ -15,14 +15,15 @@ static const char *TAG = "display";
 #if !defined(CONFIG_MUSOPTI_DISPLAY_SIMULATED)
 
 #include "lvgl.h"
+#include "driver/i2c_master.h"
 #include "driver/spi_master.h"
-#include "driver/i2c.h"
 #include "driver/gpio.h"
 #include "esp_timer.h"
 #include "esp_lcd_panel_io.h"
 #include "esp_lcd_panel_ops.h"
 #include "esp_lcd_sh8601.h"
 #include "esp_io_expander_tca9554.h"
+#include "i2c_bus.h"
 
 /* ---- pin definitions (match Waveshare BSP) ---- */
 #define LCD_HOST         SPI2_HOST
@@ -202,20 +203,11 @@ static void build_ui(void)
 
 static esp_err_t hw_display_init(void)
 {
-    /* I2C for touch + IO expander */
-    const i2c_config_t i2c_conf = {
-        .mode = I2C_MODE_MASTER,
-        .sda_io_num = PIN_TOUCH_SDA,
-        .sda_pullup_en = GPIO_PULLUP_ENABLE,
-        .scl_io_num = PIN_TOUCH_SCL,
-        .scl_pullup_en = GPIO_PULLUP_ENABLE,
-        .master.clk_speed = 200000,
-    };
-    ESP_ERROR_CHECK(i2c_param_config(TOUCH_HOST, &i2c_conf));
-    ESP_ERROR_CHECK(i2c_driver_install(TOUCH_HOST, i2c_conf.mode, 0, 0, 0));
+    i2c_master_bus_handle_t i2c_bus = NULL;
+    ESP_ERROR_CHECK(musopti_i2c_bus_get(TOUCH_HOST, PIN_TOUCH_SDA, PIN_TOUCH_SCL, 200000, &i2c_bus));
 
     esp_io_expander_handle_t io_exp = NULL;
-    ESP_ERROR_CHECK(esp_io_expander_new_i2c_tca9554(TOUCH_HOST,
+    ESP_ERROR_CHECK(esp_io_expander_new_i2c_tca9554(i2c_bus,
                     ESP_IO_EXPANDER_I2C_TCA9554_ADDRESS_000, &io_exp));
     esp_io_expander_set_dir(io_exp, IO_EXPANDER_PIN_NUM_4 | IO_EXPANDER_PIN_NUM_5,
                             IO_EXPANDER_OUTPUT);
